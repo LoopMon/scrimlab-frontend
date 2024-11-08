@@ -10,6 +10,8 @@ import {
 // Hooks
 import useAuth from "~/hooks/useAuth"
 import useLanguage from "~/hooks/useLanguage"
+// Components
+import TextInputField from "~/components/TextInputField"
 // Services
 import api from "~/services/api"
 // Estilos
@@ -17,15 +19,12 @@ import styles from "./styles"
 
 // Imagens
 const ScrimLab = require("~/assets/images/scrimlab-logo.png")
-const Eye = require("~/assets/images/eye.png")
-const EyeClosed = require("~/assets/images/eye-closed.png")
 
 function SignIn({ navigation }: any) {
   const { i18n, lang }: any = useLanguage()
   const { signin }: any = useAuth()
-  const [email, setEmail] = useState("victor@email")
-  const [senha, setSenha] = useState("1")
-  const [esconderSenha, setEsconderSenha] = useState(true)
+  const [email, setEmail] = useState("lucas@email")
+  const [senha, setSenha] = useState("123")
   const [error, setError] = useState("")
 
   const fazerLogin = async () => {
@@ -51,42 +50,26 @@ function SignIn({ navigation }: any) {
     <SafeAreaView style={styles.container}>
       <Image style={styles.image} source={ScrimLab} />
 
-      <View>
+      <View style={styles.form}>
         <Text style={styles.titulo}>{i18n(lang, "signin_title")}:</Text>
-        <View>
-          <Text style={styles.label}>E-mail:</Text>
-          <TextInput
-            style={styles.inputEmail}
-            placeholder={i18n(lang, "signin_placeholderEmail")}
-            placeholderTextColor={"#999"}
-            value={email}
-            onChangeText={(value) => [setEmail(value), setError("")]}
-          />
-        </View>
 
-        <View>
-          <Text style={styles.label}>{i18n(lang, "password")}:</Text>
-          <View style={styles.inputPassword}>
-            <TextInput
-              secureTextEntry={esconderSenha}
-              style={styles.input}
-              placeholder={i18n(lang, "signin_placeholderPassword")}
-              placeholderTextColor={"#999"}
-              value={senha}
-              onChangeText={(value) => [setSenha(value), setError("")]}
-            />
-            <TouchableOpacity
-              onPress={() => {
-                setEsconderSenha(!esconderSenha)
-              }}
-            >
-              <Image
-                style={{ width: 20, height: 20 }}
-                source={esconderSenha ? Eye : EyeClosed}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
+        <TextInputField
+          label="E-mail"
+          value={email}
+          onChange={(value: string) => {
+            setEmail(value)
+            setError("")
+          }}
+          placeholder={i18n(lang, "signin_placeholderEmail")}
+        />
+
+        <TextInputField
+          label={i18n(lang, "password")}
+          value={senha}
+          onChange={(value: string) => [setSenha(value), setError("")]}
+          placeholder={i18n(lang, "signin_placeholderPassword")}
+          secureEntry={true}
+        />
 
         <Text style={{ color: "#f00" }}>{error}</Text>
 
@@ -97,20 +80,19 @@ function SignIn({ navigation }: any) {
         </TouchableOpacity>
       </View>
 
-      {/* SignUp */}
-      <Text style={{ color: "#fff", textAlign: "center" }}>
-        {i18n(lang, "signin_dhacc")}
+      {/* Navigate to SignUp */}
+      <View style={styles.buttonGoToSignUp}>
+        <Text style={{ color: "#fff" }}>{i18n(lang, "signin_dhacc")}</Text>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("signup")
           }}
         >
           <Text style={{ color: "#FF4654" }}>
-            {" "}
             {i18n(lang, "signin_signup")}
           </Text>
         </TouchableOpacity>
-      </Text>
+      </View>
     </SafeAreaView>
   )
 }

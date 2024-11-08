@@ -49,24 +49,24 @@ function MatchResult({ onPress, src, firstTeam, secondTeam, date, time }: any) {
 function Screen({ navigation }: any) {
   const { i18n, lang }: any = useLanguage()
   const [mapaSelecionado, setMapaSelecionado] = useState("")
-  const [matches, setMatches] = useState([])
+  const [partidas, setPartidas] = useState([])
 
   useEffect(() => {
     const searchMatches = async () => {
-      const matchesResponse = await api.get1("/matches")
+      const matchesResponse = await api.get("/partidas")
       const data = matchesResponse.filter((match: any) => {
         return match.map === mapaSelecionado && match.score == "0 : 0"
       })
-      setMatches(data)
+      setPartidas(data)
     }
 
     searchMatches()
   }, [mapaSelecionado])
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.search}>
-        <Text style={styles.label}>
+        <Text style={styles.title}>
           {i18n(lang, "matchesResults_selectMap")}:
         </Text>
         <RNPickerSelect
@@ -77,9 +77,9 @@ function Screen({ navigation }: any) {
         />
       </View>
 
-      {matches.length != 0 ? (
+      {partidas.length != 0 ? (
         <FlatList
-          data={matches}
+          data={partidas}
           renderItem={({ item }: any) => (
             <MatchResult
               onPress={() => {
@@ -97,13 +97,11 @@ function Screen({ navigation }: any) {
           )}
         />
       ) : mapaSelecionado != "" ? (
-        <Text style={{ textAlign: "center", color: "#fff", margin: 10 }}>
-          {i18n(lang, "noResults")}
-        </Text>
+        <Text style={styles.label}>{i18n(lang, "noResults")}</Text>
       ) : (
         <Text></Text>
       )}
-    </View>
+    </ScrollView>
   )
 }
 

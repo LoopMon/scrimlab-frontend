@@ -6,26 +6,26 @@ const styles = StyleSheet.create({
     backgroundColor: "#111C26",
     paddingVertical: 10,
   },
+  goBack: {
+    margin: 10,
+  },
   image: {
     maxHeight: 100,
+    alignSelf: "center",
+  },
+  form: {
+    width: "100%",
+    alignItems: "center",
   },
   titulo: {
-    width: "100%",
+    width: "90%",
     fontFamily: "KronaOne-Regular",
-    fontSize: 20,
-    paddingVertical: 10,
+    fontSize: 30,
+    paddingVertical: 5,
     color: "#fff",
   },
   label: {
     color: "#fff",
-  },
-  input: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    width: "90%",
-    minWidth: 300,
-    padding: 15,
-    marginVertical: 5,
   },
   buttonActive: {
     width: "90%",

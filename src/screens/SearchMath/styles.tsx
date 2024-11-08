@@ -2,18 +2,18 @@ import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    height: "100%",
+    flex: 1,
     backgroundColor: "#111C26",
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingVertical: 10,
   },
   search: {
-    margin: "auto",
+    marginVertical: 10,
+    marginHorizontal: "auto",
     width: "90%",
   },
-  label: {
+  title: {
     color: "#fff",
+    fontSize: 18,
     marginBottom: 5,
     fontFamily: "KronaOne-Regular",
   },
@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
     maxWidth: 350,
     backgroundColor: "#40202C",
     borderRadius: 10,
-    marginVertical: 20,
+    marginVertical: 10,
     marginHorizontal: "auto",
-    padding: 5,
+    padding: 10,
   },
   image: {
     borderWidth: 1,
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     textAlign: "center",
     color: "#fff",
-    fontSize: 12,
+    fontSize: 16,
     // fontWeight: 600,
     letterSpacing: 2,
     textTransform: "uppercase",
@@ -56,6 +56,11 @@ const styles = StyleSheet.create({
   itemText: {
     color: "#fff",
     margin: 5,
+  },
+  label: {
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 16,
   },
 })
 

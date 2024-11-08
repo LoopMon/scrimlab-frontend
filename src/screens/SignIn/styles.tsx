@@ -10,8 +10,12 @@ const styles = StyleSheet.create({
   image: {
     minWidth: 300,
   },
-  titulo: {
+  form: {
     width: "100%",
+    alignItems: "center",
+  },
+  titulo: {
+    width: "90%",
     fontFamily: "KronaOne-Regular",
     fontSize: 30,
     paddingVertical: 5,
@@ -20,41 +24,25 @@ const styles = StyleSheet.create({
   label: {
     color: "#fff",
   },
-  inputEmail: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    width: "90%",
-    minWidth: 300,
-    marginVertical: 5,
-    padding: 15,
-  },
-  inputPassword: {
-    width: "90%",
-    minWidth: 300,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    marginVertical: 5,
-    padding: 5,
-  },
-  input: {
-    width: "90%",
-    padding: 10,
-    borderRadius: 10,
-  },
   button: {
     width: "90%",
     minWidth: 300,
     padding: 15,
     backgroundColor: "#FF4654",
     borderRadius: 10,
-    marginVertical: 15,
+    marginVertical: 10,
   },
   buttonText: {
     color: "#fff",
     textAlign: "center",
+    fontSize: 16,
+  },
+  buttonGoToSignUp: {
+    width: "100%",
+    marginTop: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 5,
   },
 })
 

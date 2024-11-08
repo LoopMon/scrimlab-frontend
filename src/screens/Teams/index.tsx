@@ -31,7 +31,7 @@ function Screen({ navigation }: any) {
               })
             }}
           >
-            <TeamComponent src={team.logo} team={team.name} />
+            <TeamComponent key={index} src={team.logo} team={team.name} />
           </TouchableOpacity>
         ))}
       </View>

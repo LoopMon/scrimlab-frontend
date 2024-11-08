@@ -31,8 +31,8 @@ function Team({ route, navigation }: any) {
           {i18n(lang, "team_currentTeam")}
         </Text>
         {team ? (
-          team.players.map((player: any) => (
-            <Player src={player.image} name={player.name} />
+          team.players.map((player: any, index: any) => (
+            <Player key={index} src={player.image} name={player.name} />
           ))
         ) : (
           <Text>Loading...</Text>

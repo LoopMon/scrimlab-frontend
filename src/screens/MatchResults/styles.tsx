@@ -2,16 +2,18 @@ import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    paddingVertical: 10,
     backgroundColor: "#111C26",
-    paddingTop: 5,
-    paddingBottom: 5,
   },
   search: {
-    margin: "auto",
+    marginVertical: 10,
+    marginHorizontal: "auto",
     width: "90%",
   },
-  label: {
+  title: {
     color: "#fff",
+    fontSize: 18,
     marginBottom: 5,
     fontFamily: "KronaOne-Regular",
   },
@@ -47,13 +49,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#fff",
     fontSize: 16,
-    fontWeight: 600,
+    // fontWeight: 600,
     letterSpacing: 2,
     textTransform: "uppercase",
   },
   itemText: {
     color: "#fff",
     margin: 3,
+  },
+  label: {
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 16,
   },
 })
 

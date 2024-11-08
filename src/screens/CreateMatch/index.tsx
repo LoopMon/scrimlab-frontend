@@ -222,12 +222,10 @@ function Screen({ navigation }: any) {
             label: i18n(lang, "createMatch_selectItem"),
             value: null,
           }}
-          onValueChange={(valor: string | undefined) => {
+          onValueChange={(valor: string) => {
             if (typeof valor === "string") {
               const array: string[] = valor.split(",")
               setSelectedMap(array)
-            } else {
-              console.warn("Valor não é uma string:", valor)
             }
           }}
           items={maps}

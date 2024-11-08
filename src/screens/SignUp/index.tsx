@@ -10,6 +10,8 @@ import {
 // Hooks
 import useAuth from "~/hooks/useAuth"
 import useLanguage from "~/hooks/useLanguage"
+// Components
+import TextInputField from "~/components/TextInputField"
 // Images
 const ScrimLab = require("~/assets/images/scrimlab.png")
 const LeftArrow = require("~/assets/images/left-arrow.png")
@@ -49,6 +51,7 @@ function SignUp({ navigation }: any) {
   return (
     <ScrollView style={styles.container}>
       <TouchableOpacity
+        style={styles.goBack}
         onPress={() => {
           navigation.navigate("signin")
         }}
@@ -58,56 +61,40 @@ function SignUp({ navigation }: any) {
 
       <Image style={styles.image} source={ScrimLab} />
 
-      <View>
+      <View style={styles.form}>
         <Text style={styles.titulo}>{i18n(lang, "signup_title")}:</Text>
 
-        <View>
-          <Text style={styles.label}>{i18n(lang, "signup_user")}:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={i18n(lang, "signup_placeholderUser")}
-            placeholderTextColor={"#999"}
-            value={usuario}
-            onChangeText={(value) => {
-              setUsuario(value)
-            }}
-          />
-        </View>
+        <TextInputField
+          label={i18n(lang, "signup_user")}
+          value={usuario}
+          onChange={(value) => {
+            setUsuario(value)
+          }}
+          placeholder={i18n(lang, "signup_placeholderUser")}
+        />
 
-        <View>
-          <Text style={styles.label}>E-mail:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={i18n(lang, "signup_placeholderEmail")}
-            placeholderTextColor={"#999"}
-            value={email}
-            onChangeText={setEmail}
-          />
-        </View>
+        <TextInputField
+          label="E-mail"
+          value={email}
+          onChange={setEmail}
+          placeholder={i18n(lang, "signup_placeholderEmail")}
+        />
 
-        <View>
-          <Text style={styles.label}>{i18n(lang, "password")}:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={i18n(lang, "signup_placeholderPassword")}
-            placeholderTextColor={"#999"}
-            secureTextEntry
-            value={senha}
-            onChangeText={setSenha}
-          />
-        </View>
+        <TextInputField
+          label={i18n(lang, "password")}
+          value={senha}
+          onChange={setSenha}
+          placeholder={i18n(lang, "signup_placeholderPassword")}
+          secureEntry={true}
+        />
 
-        <View>
-          <Text style={styles.label}>{i18n(lang, "signup_cpassword")}:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={i18n(lang, "signup_placeholderCPassword")}
-            placeholderTextColor={"#999"}
-            secureTextEntry
-            value={confirmarSenha}
-            onChangeText={setConfirmarSenha}
-          />
-        </View>
+        <TextInputField
+          label={i18n(lang, "signup_cpassword")}
+          value={confirmarSenha}
+          onChange={setConfirmarSenha}
+          placeholder={i18n(lang, "signup_placeholderCPassword")}
+          secureEntry={true}
+        />
 
         <Text style={{ color: "#f00" }}>{error}</Text>
 

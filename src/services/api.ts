@@ -1,9 +1,9 @@
-// src/api/axiosConfig.ts
-
+import { API_BASE_URL } from "@env"
 import axios from "axios"
+// import API_BASE_URL from "react-native-dotenv"
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: `http://${API_BASE_URL}`,
   headers: {
     "Content-Type": "application/json",
   },

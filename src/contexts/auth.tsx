@@ -1,8 +1,8 @@
 import { createContext, useState, ReactNode, FC } from "react"
-import api from "../services/api"
-import useLanguage from "../hooks/useLanguage"
+import api from "~/services/api"
+import useLanguage from "~/hooks/useLanguage"
 
-// Definição do tipo User
+// Definição do Usuário
 interface User {
   nome: string
   email: string
@@ -33,9 +33,10 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     senha: string
   ): Promise<string | void> => {
     try {
-      const usuarios: User[] = await api.get("/usuario")
+      const { data }: any = await api.get("/usuario")
+      const usuarios = await data.usuarios
 
-      const usuario = usuarios.find((usuario) => usuario.email === email)
+      const usuario = usuarios.find((usuario: User) => usuario.email === email)
 
       if (usuario) {
         if (usuario.senha === senha) {
@@ -59,21 +60,18 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     senha: string
   ): Promise<string | void> => {
     try {
-      const usuarios: User[] = await api.get("usuario")
-      console.log(usuarios)
-      const usuarioNome = usuarios.find((usuario) => usuario.nome === nome)
+      const { data }: any = await api.get("/usuario")
+      const usuarios = await data.usuarios
 
-      if (usuarioNome) {
-        return i18n(lang, "signupError_invalidUser")
-      }
-
-      const usuarioEmail = usuarios.find((usuario) => usuario.email === email)
+      const usuarioEmail = usuarios.find(
+        (usuario: User) => usuario.email === email
+      )
 
       if (usuarioEmail) {
         return i18n(lang, "signupError_invalidEmail")
       }
 
-      await api.post("usuario/signup", {
+      await api.post("/usuario/signup", {
         nome,
         email,
         senha,

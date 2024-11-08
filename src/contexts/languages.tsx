@@ -26,7 +26,7 @@ interface LanguageProviderProps {
 const LanguageProvider: FC<LanguageProviderProps> = ({ children }) => {
   const [lang, setLang] = useState("pt_br")
 
-  const i18n = (lang: string, key: string): any => {
+  const i18n = (lang: string, key: string): string => {
     const language = languages[lang] || languages["pt_br"]
     return language[key] || key
   }

@@ -1,5 +1,6 @@
 import { Image, ScrollView, Text, View } from "react-native"
 import useLanguage from "~/hooks/useLanguage"
+import useAuth from "~/hooks/useAuth"
 
 import styles from "./styles"
 
@@ -9,9 +10,12 @@ const AugustoImage = require("~/assets/images/va-dev.jpeg")
 
 function Home({ navigation }: any) {
   const { i18n, lang }: any = useLanguage()
+  const { user }: any = useAuth()
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>{i18n(lang, "home_title")}</Text>
+      <Text style={styles.title}>
+        {i18n(lang, "home_title")} {user.nome}
+      </Text>
       <Text style={styles.text}>{i18n(lang, "home_firstParagraph")}</Text>
       <Text style={styles.text}>
         {"\n"}

@@ -12,8 +12,8 @@ import { createStackNavigator } from "@react-navigation/stack"
 // Screens
 import Match from "../Match"
 // Hooks
-import useAuth from "../../hooks/useAuth"
-import useLanguage from "../../hooks/useLanguage"
+import useAuth from "~/hooks/useAuth"
+import useLanguage from "~/hooks/useLanguage"
 // Services
 import api from "~/services/api"
 import teams from "~/services/teams"
@@ -229,6 +229,11 @@ function Screen({ navigation }: any) {
             }
           }}
           items={maps}
+          pickerProps={{
+            style: {
+              backgroundColor: "#fff",
+            },
+          }}
         />
       </View>
 
@@ -263,6 +268,11 @@ function Screen({ navigation }: any) {
           }}
           onValueChange={(value) => setFirstTeam(value)}
           items={teams}
+          pickerProps={{
+            style: {
+              backgroundColor: "#fff",
+            },
+          }}
         />
       </View>
 
@@ -277,6 +287,11 @@ function Screen({ navigation }: any) {
           }}
           onValueChange={(value) => setSecondTeam(value)}
           items={teams}
+          pickerProps={{
+            style: {
+              backgroundColor: "#fff",
+            },
+          }}
         />
       </View>
 

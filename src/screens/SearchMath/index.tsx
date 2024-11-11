@@ -12,10 +12,10 @@ import RNPickerSelect from "react-native-picker-select"
 // Screens
 import Match from "../Match"
 // Hooks
-import useLanguage from "../../hooks/useLanguage"
+import useLanguage from "~/hooks/useLanguage"
 // Services
-import api from "../../services/api"
-import maps from "../../services/maps"
+import api from "~/services/api"
+import maps from "~/services/maps"
 // Estilos
 import styles from "./styles"
 
@@ -74,6 +74,11 @@ function Screen({ navigation }: any) {
             setMapaSelecionado(valor[0])
           }}
           items={maps}
+          pickerProps={{
+            style: {
+              backgroundColor: "#fff",
+            },
+          }}
         />
       </View>
 

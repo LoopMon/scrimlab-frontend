@@ -75,6 +75,11 @@ function Screen({ navigation }: any) {
             setMapaSelecionado(valor[0])
           }}
           items={maps}
+          pickerProps={{
+            style: {
+              backgroundColor: "#fff",
+            },
+          }}
         />
       </View>
 

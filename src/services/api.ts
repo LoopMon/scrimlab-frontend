@@ -3,7 +3,7 @@ import axios from "axios"
 // import API_BASE_URL from "react-native-dotenv"
 
 const api = axios.create({
-  baseURL: `http://${API_BASE_URL}`,
+  baseURL: `http://${API_BASE_URL}:3000`,
   headers: {
     "Content-Type": "application/json",
   },

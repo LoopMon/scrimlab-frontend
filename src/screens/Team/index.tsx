@@ -1,28 +1,39 @@
-import { View, Text, Image, ScrollView } from "react-native"
+import { View, Text, Image } from "react-native"
 import useLanguage from "~/hooks/useLanguage"
 
 import styles from "./styles"
 
-function Player({ src, name }: any) {
+interface TimeProps {
+  nome: string
+  logo: string
+  pais: string
+  jogadores: string[]
+}
+interface JogadorProps {
+  nome: string
+  imagem: string
+}
+
+function Player({ nome, imagem }: JogadorProps) {
   return (
     <View style={styles.jogador}>
-      <Image source={{ uri: src }} style={styles.jogadorImg} />
-      <Text style={{ color: "#fff" }}>{name}</Text>
+      <Image source={{ uri: imagem }} style={styles.jogadorImg} />
+      <Text style={{ color: "#fff" }}>{nome}</Text>
     </View>
   )
 }
 
 function Team({ route, navigation }: any) {
   const { i18n, lang }: any = useLanguage()
-  const team = route?.params
+  const time: TimeProps = route?.params
 
   return (
     <View style={styles.container}>
       <View style={styles.time}>
-        <Image source={{ uri: team.logo }} style={styles.timeLogo} />
+        <Image source={{ uri: time.logo }} style={styles.timeLogo} />
         <View style={styles.timeDesc}>
-          <Text style={{ fontSize: 18, color: "#fff" }}>{team.name}</Text>
-          <Text style={{ fontSize: 12, color: "#fff" }}>{team.country}</Text>
+          <Text style={{ fontSize: 18, color: "#fff" }}>{time.nome}</Text>
+          <Text style={{ fontSize: 12, color: "#fff" }}>{time.pais}</Text>
         </View>
       </View>
 
@@ -30,9 +41,9 @@ function Team({ route, navigation }: any) {
         <Text style={{ width: "100%", color: "#fff", textAlign: "left" }}>
           {i18n(lang, "team_currentTeam")}
         </Text>
-        {team ? (
-          team.players.map((player: any, index: any) => (
-            <Player key={index} src={player.image} name={player.name} />
+        {time ? (
+          time.jogadores.map((player: any, index: any) => (
+            <Player key={index} nome={player.nome} imagem={player.imagem} />
           ))
         ) : (
           <Text>Loading...</Text>

@@ -1,17 +1,11 @@
 import { useState } from "react"
-import {
-  SafeAreaView,
-  Image,
-  TextInput,
-  Text,
-  View,
-  TouchableOpacity,
-} from "react-native"
+import { SafeAreaView, Image, Text, View, TouchableOpacity } from "react-native"
 // Hooks
 import useAuth from "~/hooks/useAuth"
 import useLanguage from "~/hooks/useLanguage"
 // Components
 import TextInputField from "~/components/TextInputField"
+import MyButton from "~/components/MyButton"
 // Services
 import api from "~/services/api"
 // Estilos
@@ -73,11 +67,10 @@ function SignIn({ navigation }: any) {
 
         <Text style={{ color: "#f00" }}>{error}</Text>
 
-        <TouchableOpacity style={styles.button} onPress={fazerLogin}>
-          <Text style={styles.buttonText}>
-            {i18n(lang, "signin_submitButton")}
-          </Text>
-        </TouchableOpacity>
+        <MyButton
+          label={i18n(lang, "signin_submitButton")}
+          onPress={fazerLogin}
+        />
       </View>
 
       {/* Navigate to SignUp */}

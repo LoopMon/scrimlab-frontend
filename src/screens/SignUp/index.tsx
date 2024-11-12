@@ -17,6 +17,7 @@ const ScrimLab = require("~/assets/images/scrimlab.png")
 const LeftArrow = require("~/assets/images/left-arrow.png")
 // Estilos
 import styles from "./styles"
+import MyButton from "~/components/MyButton"
 
 function SignUp({ navigation }: any) {
   const { signup }: any = useAuth()
@@ -98,19 +99,11 @@ function SignUp({ navigation }: any) {
 
         <Text style={{ color: "#f00" }}>{error}</Text>
 
-        <TouchableOpacity
-          style={
-            senha === confirmarSenha
-              ? styles.buttonActive
-              : styles.buttonDesactive
-          }
-          disabled={senha !== confirmarSenha}
+        <MyButton
+          label={i18n(lang, "signup_submitButton")}
           onPress={cadastrarUsuario}
-        >
-          <Text style={{ color: "#fff", textAlign: "center" }}>
-            {i18n(lang, "signup_submitButton")}
-          </Text>
-        </TouchableOpacity>
+          disabled={senha !== confirmarSenha}
+        />
       </View>
     </ScrollView>
   )

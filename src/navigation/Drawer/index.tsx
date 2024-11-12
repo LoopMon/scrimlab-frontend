@@ -1,12 +1,15 @@
+import { Image, Text, TouchableOpacity, View } from "react-native"
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer"
-import { Image, Text, TouchableOpacity, View } from "react-native"
 import { Feather } from "@expo/vector-icons"
+import Fontisto from "@expo/vector-icons/Fontisto"
+// Hooks
 import useAuth from "~/hooks/useAuth"
 import useLanguage from "~/hooks/useLanguage"
+// Screens
 import Config from "~/screens/Config"
 import CreateMatch from "~/screens/CreateMatch"
 import Home from "~/screens/Home"
@@ -74,7 +77,8 @@ function DrawerRoutes() {
       screenOptions={{
         drawerStyle: {
           backgroundColor: "#40202C",
-          width: 240,
+          width: "80%",
+          maxWidth: 280,
         },
         drawerActiveBackgroundColor: "rgba(255, 255, 255, 0.1)",
         drawerActiveTintColor: "#fff",
@@ -135,6 +139,9 @@ function DrawerRoutes() {
           headerTitle: i18n(lang, "menuTitle_finishedMatches"),
           headerStyle: { backgroundColor: "#8C3243" },
           headerTintColor: "#fff",
+          drawerIcon: () => (
+            <Fontisto name="checkbox-active" size={20} color="#FF4654" />
+          ),
         }}
       />
       <Drawer.Screen
@@ -145,6 +152,9 @@ function DrawerRoutes() {
           headerTitle: i18n(lang, "menuTitle_upcomingMatches"),
           headerStyle: { backgroundColor: "#8C3243" },
           headerTintColor: "#fff",
+          drawerIcon: () => (
+            <Fontisto name="checkbox-passive" size={20} color="#FF4654" />
+          ),
         }}
       />
     </Drawer.Navigator>

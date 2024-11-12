@@ -24,10 +24,8 @@ git clone https://github.com/seu-usuario/valorant-training-planner.git
 2. Instale as dependências:
 
 ```
-
 cd valorant-training-planner
 npm install
-
 ```
 
 3. Inicie o app:

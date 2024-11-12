@@ -1,10 +1,8 @@
 import { useState } from "react"
-import { Image, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Text, TextInput, TouchableOpacity, View } from "react-native"
+import Ionicons from "@expo/vector-icons/Ionicons"
 
 import styles from "./styles"
-
-const Eye = require("~/assets/images/eye.png")
-const EyeClosed = require("~/assets/images/eye-closed.png")
 
 interface Fields {
   label: string
@@ -40,10 +38,21 @@ function TextInputField({
         />
         {secureEntry ? (
           <TouchableOpacity onPress={() => setEsconderSenha(!esconderSenha)}>
-            <Image
-              style={{ width: 20, height: 20, marginRight: 10 }}
-              source={esconderSenha ? EyeClosed : Eye}
-            />
+            {esconderSenha ? (
+              <Ionicons
+                name="eye-off"
+                size={24}
+                color="black"
+                style={{ marginRight: 10 }}
+              />
+            ) : (
+              <Ionicons
+                name="eye"
+                size={24}
+                color="black"
+                style={{ marginRight: 10 }}
+              />
+            )}
           </TouchableOpacity>
         ) : (
           <></>

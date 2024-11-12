@@ -2,37 +2,28 @@ import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    flex: 1,
     backgroundColor: "#111C26",
+  },
+  form: {
+    alignItems: "center",
     paddingVertical: 10,
-    paddingHorizontal: 10,
+  },
+  formField: {
+    width: "100%",
   },
   label: {
-    color: "#fff",
-    fontFamily: "KronaOne-Regular",
+    width: "90%",
+    marginHorizontal: "auto",
     marginVertical: 10,
+    color: "#fff",
+    fontSize: 18,
   },
   input: {
     borderRadius: 10,
     backgroundColor: "#fff",
     padding: 10,
     marginBottom: 10,
-  },
-  buttonOn: {
-    width: "100%",
-    minWidth: 300,
-    padding: 15,
-    backgroundColor: "#FF4654",
-    borderRadius: 10,
-    marginTop: 20,
-  },
-  buttonOff: {
-    width: "100%",
-    minWidth: 300,
-    padding: 15,
-    backgroundColor: "#999",
-    borderRadius: 10,
-    marginTop: 20,
   },
   placar: {
     flexDirection: "row",
@@ -60,6 +51,7 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     marginVertical: 10,
     flexDirection: "row",
+    alignItems: "center",
     gap: 10,
   },
   checkbox: {

@@ -11,6 +11,9 @@ import RNPickerSelect from "react-native-picker-select"
 import { createStackNavigator } from "@react-navigation/stack"
 // Screens
 import Match from "../Match"
+// Components
+import TextInputField from "~/components/TextInputField"
+import MyButton from "~/components/MyButton"
 // Hooks
 import useAuth from "~/hooks/useAuth"
 import useLanguage from "~/hooks/useLanguage"
@@ -215,155 +218,147 @@ function Screen({ navigation }: any) {
 
   return (
     <ScrollView style={styles.container}>
-      <View>
-        <Text style={styles.label}>{i18n(lang, "createMatch_map")}:</Text>
-        <RNPickerSelect
-          placeholder={{
-            label: i18n(lang, "createMatch_selectItem"),
-            value: null,
-          }}
-          onValueChange={(valor: string) => {
-            if (typeof valor === "string") {
-              const array: string[] = valor.split(",")
-              setSelectedMap(array)
-            }
-          }}
-          items={maps}
-          pickerProps={{
-            style: {
-              backgroundColor: "#fff",
-            },
-          }}
-        />
-      </View>
-
-      <View>
-        <Text style={styles.label}>{i18n(lang, "createMatch_date")}:</Text>
-        <TextInput
-          value={date}
-          onChangeText={setDate}
-          placeholderTextColor={"#999"}
-          placeholder={"Ex.: 12/02"}
-          style={styles.input}
-        />
-      </View>
-
-      <View>
-        <Text style={styles.label}>{i18n(lang, "createMatch_time")}:</Text>
-        <TextInput
-          value={time}
-          onChangeText={setTime}
-          placeholderTextColor={"#999"}
-          placeholder={"Ex.: 00:00 (24h)"}
-          style={styles.input}
-        />
-      </View>
-
-      <View>
-        <Text style={styles.label}>{i18n(lang, "createMatch_firstTeam")}:</Text>
-        <RNPickerSelect
-          placeholder={{
-            label: i18n(lang, "createMatch_selectItem"),
-            value: null,
-          }}
-          onValueChange={(value) => setFirstTeam(value)}
-          items={teams}
-          pickerProps={{
-            style: {
-              backgroundColor: "#fff",
-            },
-          }}
-        />
-      </View>
-
-      <View>
-        <Text style={styles.label}>
-          {i18n(lang, "createMatch_secondTeam")}:
-        </Text>
-        <RNPickerSelect
-          placeholder={{
-            label: i18n(lang, "createMatch_selectItem"),
-            value: null,
-          }}
-          onValueChange={(value) => setSecondTeam(value)}
-          items={teams}
-          pickerProps={{
-            style: {
-              backgroundColor: "#fff",
-            },
-          }}
-        />
-      </View>
-
-      <View>
-        <Checkbox
-          isChecked={isSelected}
-          message={i18n(lang, "createMatch_matchFinished")}
-          onPress={() => setSelection(!isSelected)}
-        />
-      </View>
-
-      {isSelected ? (
-        <View>
-          <Text style={styles.label}>
-            {i18n(lang, "createMatch_matchPoints")}:
-          </Text>
-          <View style={styles.placar}>
-            <Image style={styles.placarImage} source={{ uri: firstTeamLogo }} />
-            <TextInput
-              keyboardType="numeric"
-              value={firstTeamScore}
-              onChangeText={(value) => {
-                handleChange(setFirstTeamScore, value)
-              }}
-              style={styles.placarScore}
-            />
-            <Text style={styles.placarTexto}>:</Text>
-            <TextInput
-              keyboardType="numeric"
-              value={secondTeamScore}
-              onChangeText={(value) => {
-                handleChange(setSecondTeamScore, value)
-              }}
-              style={styles.placarScore}
-            />
-            <Image
-              style={styles.placarImage}
-              source={{ uri: secondTeamLogo }}
-            />
-          </View>
+      <View style={styles.form}>
+        <View style={styles.formField}>
+          <Text style={styles.label}>{i18n(lang, "createMatch_map")}:</Text>
+          <RNPickerSelect
+            placeholder={{
+              label: i18n(lang, "createMatch_selectItem"),
+              value: null,
+            }}
+            onValueChange={(valor: string) => {
+              if (typeof valor === "string") {
+                const array: string[] = valor.split(",")
+                setSelectedMap(array)
+              }
+            }}
+            items={maps}
+            pickerProps={{
+              style: {
+                width: "90%",
+                marginHorizontal: "auto",
+                backgroundColor: "#fff",
+              },
+            }}
+          />
         </View>
-      ) : (
-        <View></View>
-      )}
 
-      <Text style={{ color: "#f00" }}>{error}</Text>
+        <TextInputField
+          label={i18n(lang, "createMatch_date")}
+          value={date}
+          onChange={setDate}
+          placeholder={"Ex.: 12/02"}
+        />
 
-      <TouchableOpacity
-        style={
-          !selectedMap[0] ||
-          !date ||
-          !time ||
-          !firstTeam ||
-          !secondTeam ||
-          (isSelected && (!firstTeamScore || !secondTeamScore))
-            ? styles.buttonOff
-            : styles.buttonOn
-        }
-        disabled={
-          !selectedMap[0] ||
-          !date ||
-          !time ||
-          !firstTeam ||
-          !secondTeam ||
-          (isSelected && (!firstTeamScore || !secondTeamScore))
-        }
-        onPress={createMatch}
-      >
-        <Text style={{ color: "#fff", textAlign: "center", fontSize: 12 }}>
-          {i18n(lang, "createMatch_submitButton")}
-        </Text>
-      </TouchableOpacity>
+        <TextInputField
+          label={i18n(lang, "createMatch_time")}
+          value={time}
+          onChange={setTime}
+          placeholder={"Ex.: 00:00 (24h)"}
+        />
+
+        <View style={styles.formField}>
+          <Text style={styles.label}>
+            {i18n(lang, "createMatch_firstTeam")}:
+          </Text>
+          <RNPickerSelect
+            placeholder={{
+              label: i18n(lang, "createMatch_selectItem"),
+              value: null,
+            }}
+            onValueChange={(value) => setFirstTeam(value)}
+            items={teams}
+            pickerProps={{
+              style: {
+                width: "90%",
+                marginHorizontal: "auto",
+                backgroundColor: "#fff",
+              },
+            }}
+          />
+        </View>
+
+        <View style={styles.formField}>
+          <Text style={styles.label}>
+            {i18n(lang, "createMatch_secondTeam")}:
+          </Text>
+          <RNPickerSelect
+            placeholder={{
+              label: i18n(lang, "createMatch_selectItem"),
+              value: null,
+            }}
+            onValueChange={(value) => setSecondTeam(value)}
+            items={teams}
+            pickerProps={{
+              style: {
+                width: "90%",
+                marginHorizontal: "auto",
+                backgroundColor: "#fff",
+              },
+            }}
+          />
+        </View>
+
+        <View>
+          <Checkbox
+            isChecked={isSelected}
+            message={i18n(lang, "createMatch_matchFinished")}
+            onPress={() => setSelection(!isSelected)}
+          />
+        </View>
+
+        {isSelected ? (
+          <View>
+            <Text style={styles.label}>
+              {i18n(lang, "createMatch_matchPoints")}:
+            </Text>
+            <View style={styles.placar}>
+              <Image
+                style={styles.placarImage}
+                source={{ uri: firstTeamLogo }}
+              />
+              <TextInput
+                keyboardType="numeric"
+                value={firstTeamScore}
+                onChangeText={(value) => {
+                  handleChange(setFirstTeamScore, value)
+                }}
+                style={styles.placarScore}
+              />
+              <Text style={styles.placarTexto}>:</Text>
+              <TextInput
+                keyboardType="numeric"
+                value={secondTeamScore}
+                onChangeText={(value) => {
+                  handleChange(setSecondTeamScore, value)
+                }}
+                style={styles.placarScore}
+              />
+              <Image
+                style={styles.placarImage}
+                source={{ uri: secondTeamLogo }}
+              />
+            </View>
+          </View>
+        ) : (
+          <View></View>
+        )}
+
+        <Text style={{ color: "#f00" }}>{error}</Text>
+
+        <MyButton
+          label={i18n(lang, "createMatch_submitButton")}
+          onPress={createMatch}
+          disabled={
+            !selectedMap[0] ||
+            !date ||
+            !time ||
+            !firstTeam ||
+            !secondTeam ||
+            (isSelected && (!firstTeamScore || !secondTeamScore))
+          }
+        />
+      </View>
     </ScrollView>
   )
 }

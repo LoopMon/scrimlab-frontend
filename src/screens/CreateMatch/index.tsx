@@ -75,20 +75,13 @@ function Screen({ navigation }: any) {
         }
       })
 
-      const response = await api.post1("/matches", {
-        map: selectedMap[0],
-        mapImage: selectedMap[1],
+      const response = await api.post("/partida", {
+        nomeMapa: selectedMap[0],
+        imgMapa: selectedMap[1],
         teams: [team1, team2],
         score: "0 : 0",
-        date: date,
-        time: time,
-        idCreator: user.id,
-      })
-
-      const dashboard = await api.get2("/dashboard")
-
-      const updateDashBoard = await api.put2("/dashboard/1", {
-        totalMatches: Number(dashboard[0].totalMatches) + 1,
+        date: `2024-${date}T${time}`,
+        idUsuario: user._id,
       })
 
       // reset dos campos
@@ -149,20 +142,13 @@ function Screen({ navigation }: any) {
       }
     })
 
-    const response = await api.post1("/matches", {
-      map: selectedMap[0],
-      mapImage: selectedMap[1],
+    const response = await api.post("/partida", {
+      nomeMapa: selectedMap[0],
+      imgMapa: selectedMap[1],
       teams: [team1, team2],
       score: `${firstTeamScore} : ${secondTeamScore}`,
-      date: date,
-      time: time,
-      idCreator: user.id,
-    })
-    const dashboard = await api.get2("/dashboard")
-
-    const updateDashBoard = await api.put2("/dashboard/1", {
-      totalMatches: Number(dashboard[0].totalMatches) + 1,
-      finalizedMatches: Number(dashboard[0].finalizedMatches) + 1,
+      date: `2024-${date}T${time}`,
+      idUsuario: user.id,
     })
 
     // reset dos campos

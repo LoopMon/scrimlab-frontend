@@ -8,6 +8,13 @@ const JoaoImage = require("~/assets/images/joao-dev.jpeg")
 const CassianoImage = require("~/assets/images/cassiano-dev.jpeg")
 const AugustoImage = require("~/assets/images/va-dev.jpeg")
 
+const ts = require("~/assets/images/front-icons/ts.png")
+const react = require("~/assets/images/front-icons/react.png")
+const expo = require("~/assets/images/front-icons/expo.png")
+const js = require("~/assets/images/back-icons/js.png")
+const node = require("~/assets/images/back-icons/node.png")
+const mongodb = require("~/assets/images/back-icons/mongodb.png")
+
 function Home({ navigation }: any) {
   const { i18n, lang }: any = useLanguage()
   const { user }: any = useAuth()
@@ -31,20 +38,47 @@ function Home({ navigation }: any) {
       </Text>
 
       <Text style={styles.title}>{i18n(lang, "home_developers")}:</Text>
-      <View style={styles.area}>
-        <Image style={styles.image} source={JoaoImage} />
-        <Text style={styles.especialLabel}>Front-End</Text>
-        <Text style={styles.label}>João Lucas da Costa</Text>
+
+      <View style={styles.dev}>
+        <Image style={styles.devImage} source={JoaoImage} />
+        <View style={styles.devInfo}>
+          <Text style={styles.especialLabel}>Front-End</Text>
+          <View style={styles.devStack}>
+            <Image source={ts} />
+            <Image source={react} />
+            <Image source={expo} />
+          </View>
+          <Text style={styles.label}>João Lucas</Text>
+        </View>
+        <View style={styles.especialBar}></View>
       </View>
-      <View style={styles.area}>
-        <Image style={styles.image} source={AugustoImage} />
-        <Text style={styles.especialLabel}>Back-End</Text>
-        <Text style={styles.label}>Víctor Augusto</Text>
+
+      <View style={styles.dev}>
+        <Image style={styles.devImage} source={AugustoImage} />
+        <View style={styles.devInfo}>
+          <Text style={styles.especialLabel}>Back-End</Text>
+          <View style={styles.devStack}>
+            <Image source={js} />
+            <Image source={node} />
+            <Image source={mongodb} />
+          </View>
+          <Text style={styles.label}>Víctor Augusto</Text>
+        </View>
+        <View style={styles.especialBar}></View>
       </View>
-      <View style={styles.area}>
-        <Image style={styles.image} source={CassianoImage} />
-        <Text style={styles.especialLabel}>Back-End</Text>
-        <Text style={styles.label}>Victor Cassiano</Text>
+
+      <View style={styles.dev}>
+        <Image style={styles.devImage} source={CassianoImage} />
+        <View style={styles.devInfo}>
+          <Text style={styles.especialLabel}>Back-End</Text>
+          <View style={styles.devStack}>
+            <Image source={js} />
+            <Image source={node} />
+            <Image source={mongodb} />
+          </View>
+          <Text style={styles.label}>Victor Cassiano</Text>
+        </View>
+        <View style={styles.especialBar}></View>
       </View>
     </ScrollView>
   )

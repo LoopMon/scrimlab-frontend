@@ -72,7 +72,7 @@ function DrawerRoutes() {
 
   return (
     <Drawer.Navigator
-      initialRouteName="scrimlab"
+      initialRouteName="matchesresults"
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         drawerStyle: {

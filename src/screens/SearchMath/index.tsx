@@ -1,13 +1,6 @@
-import { useState, useEffect } from "react"
-import {
-  ScrollView,
-  Text,
-  View,
-  Image,
-  FlatList,
-  TouchableOpacity,
-} from "react-native"
 import { createStackNavigator } from "@react-navigation/stack"
+import { useState, useEffect } from "react"
+import { ScrollView, Text, View, Image, TouchableOpacity } from "react-native"
 import RNPickerSelect from "react-native-picker-select"
 // Screens
 import Match from "../Match"
@@ -19,9 +12,33 @@ import maps from "~/services/maps"
 // Estilos
 import styles from "./styles"
 
+interface TimeProps {
+  nome: string
+  logo: string
+  pais: string
+  jogadores: string[]
+}
+interface PartidaProps {
+  nomeMapa: string
+  imgMapa: string
+  data: string
+  score: string
+}
+interface EstatisticasProps {
+  abates: number
+  mortes: number
+  assistencias: number
+}
+interface TimeEmPartidaProps {
+  _id: string
+  idPartida: PartidaProps
+  idTime: TimeProps
+  estatisticaJogador: EstatisticasProps[]
+}
+
 const Stack = createStackNavigator()
 
-function MatchResult({ onPress, src, firstTeam, secondTeam, date, time }: any) {
+function MatchResult({ onPress, src, firstTeam, secondTeam, date }: any) {
   const { i18n, lang }: any = useLanguage()
 
   return (
@@ -38,9 +55,7 @@ function MatchResult({ onPress, src, firstTeam, secondTeam, date, time }: any) {
         <Text style={styles.itemTitle}>
           {i18n(lang, "matchesResults_time")}
         </Text>
-        <Text style={[styles.itemText, { textAlign: "center" }]}>
-          {date} - {time}
-        </Text>
+        <Text style={[styles.itemText, { textAlign: "center" }]}>{date}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -49,15 +64,23 @@ function MatchResult({ onPress, src, firstTeam, secondTeam, date, time }: any) {
 function Screen({ navigation }: any) {
   const { i18n, lang }: any = useLanguage()
   const [mapaSelecionado, setMapaSelecionado] = useState("")
-  const [partidas, setPartidas] = useState([])
+  const [partidasPorMapa, setPartidasPorMapa] = useState<TimeEmPartidaProps[]>(
+    []
+  )
 
   useEffect(() => {
     const searchMatches = async () => {
-      const matchesResponse = await api.get("/partidas")
-      const data = matchesResponse.filter((match: any) => {
-        return match.map === mapaSelecionado && match.score == "0 : 0"
-      })
-      setPartidas(data)
+      const { data } = await api.get("/timeEmPartida")
+      const partidas = await data.timesEmPartida
+      const partidasFiltradas = partidas.filter(
+        (partida: TimeEmPartidaProps) => {
+          return (
+            partida.idPartida.nomeMapa.toLowerCase() === mapaSelecionado &&
+            partida.idPartida.score.includes("0 : 0")
+          )
+        }
+      )
+      setPartidasPorMapa(partidasFiltradas)
     }
 
     searchMatches()
@@ -82,25 +105,29 @@ function Screen({ navigation }: any) {
         />
       </View>
 
-      {partidas.length != 0 ? (
-        <FlatList
-          data={partidas}
-          renderItem={({ item }: any) => (
+      {partidasPorMapa.length != 0 ? (
+        partidasPorMapa.map((partida: any, index: number) =>
+          index % 2 === 0 ? (
             <MatchResult
+              key={index}
               onPress={() => {
                 navigation.navigate({
                   name: "match",
-                  params: item,
+                  params: {
+                    idPartida1: partida._id,
+                    idPartida2: partidasPorMapa[index + 1]._id,
+                  },
                 })
               }}
-              src={item.mapImage}
-              firstTeam={item.teams[0].label}
-              secondTeam={item.teams[1].label}
-              date={item.date}
-              time={item.time}
+              src={partida.idPartida.imgMapa}
+              firstTeam={partida.idTime.nome}
+              secondTeam={partidasPorMapa[index + 1].idTime.nome}
+              date={partida.idPartida.data}
             />
-          )}
-        />
+          ) : (
+            <Text></Text>
+          )
+        )
       ) : mapaSelecionado != "" ? (
         <Text style={styles.label}>{i18n(lang, "noResults")}</Text>
       ) : (

@@ -16,27 +16,47 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "justify",
   },
-  area: {
-    alignSelf: "center",
-    alignItems: "center",
-    maxWidth: 150,
-    borderRadius: 10,
+  dev: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "90%",
+    maxWidth: 400,
+    borderRadius: 15,
+    backgroundColor: "#333",
+    marginHorizontal: "auto",
     marginVertical: 15,
+    padding: 5,
+    gap: 10,
   },
-  image: {
-    width: 150,
-    height: 150,
+  devImage: {
+    width: 100,
+    height: 100,
     borderRadius: 10,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "#FF4654",
+  },
+  devInfo: {
+    gap: 5,
   },
   especialLabel: {
     fontSize: 26,
     color: "#FF4654",
   },
+  devStack: {
+    flexDirection: "row",
+    gap: 15,
+  },
   label: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 18,
+  },
+  especialBar: {
+    alignSelf: "flex-end",
+    width: 20,
+    height: "100%",
+    backgroundColor: "red",
+    borderTopEndRadius: 15,
+    borderBottomEndRadius: 15,
   },
 })
 

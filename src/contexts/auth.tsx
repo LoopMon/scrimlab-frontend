@@ -4,6 +4,7 @@ import useLanguage from "~/hooks/useLanguage"
 
 // Definição do Usuário
 interface User {
+  id: string
   nome: string
   email: string
   senha: string
@@ -40,7 +41,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
       if (usuario) {
         if (usuario.senha === senha) {
-          setUser({ nome: usuario.nome, email, senha })
+          setUser({ id: usuario._id, nome: usuario.nome, email, senha })
           return
         } else {
           return i18n(lang, "signinError_invalidFields")
@@ -85,10 +86,6 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   }
 
   const signout = async (): Promise<void> => {
-    const dashboard: any = await api.get("/dashboard")
-    await api.put("/dashboard/1", {
-      onlineUsers: Number(dashboard[0].onlineUsers) - 1,
-    })
     setUser(null)
   }
 

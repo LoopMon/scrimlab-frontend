@@ -19,10 +19,51 @@ import maps from "~/services/maps"
 // Estilos
 import styles from "./styles"
 
+interface TimeProps {
+  nome: string
+  logo: string
+  pais: string
+  jogadores: string[]
+}
+interface PartidaProps {
+  nomeMapa: string
+  imgMapa: string
+  data: string
+  score: string
+}
+interface EstatisticasProps {
+  abates: number
+  mortes: number
+  assistencias: number
+}
+interface TimeEmPartidaProps {
+  _id: string
+  idPartida: PartidaProps
+  idTime: TimeProps
+  estatisticaJogador: EstatisticasProps[]
+}
+
 const Stack = createStackNavigator()
 
-function MatchResult({ onPress, src, firstTeam, secondTeam, date, time }: any) {
+function MatchResult({ onPress, src, firstTeamId, secondTeamId, date }: any) {
   const { i18n, lang }: any = useLanguage()
+
+  const formatarData = (dateString: string) => {
+    const date = new Date(dateString)
+
+    const dia = String(date.getDate()).padStart(2, "0")
+    const mes = String(date.getMonth() + 1).padStart(2, "0")
+    const ano = String(date.getFullYear()).slice(-2)
+
+    const hora = String(date.getHours()).padStart(2, "0")
+    const minutos = String(date.getMinutes()).padStart(2, "0")
+
+    // Formata a data e a hora
+    const dataFormatada = `${dia}/${mes}/${ano}`
+    const horaFormatada = `${hora}h${minutos}m`
+
+    return `${dataFormatada} ${horaFormatada}`
+  }
 
   return (
     <TouchableOpacity style={styles.list} onPress={onPress}>
@@ -32,14 +73,14 @@ function MatchResult({ onPress, src, firstTeam, secondTeam, date, time }: any) {
         <Text style={styles.itemTitle}>
           {i18n(lang, "matchesResults_team")}
         </Text>
-        <Text style={styles.itemText}>{firstTeam}</Text>
-        <Text style={styles.itemText}>{secondTeam}</Text>
+        <Text style={styles.itemText}>{firstTeamId}</Text>
+        <Text style={styles.itemText}>{secondTeamId}</Text>
 
         <Text style={styles.itemTitle}>
           {i18n(lang, "matchesResults_time")}
         </Text>
         <Text style={[styles.itemText, { textAlign: "center" }]}>
-          {date} - {time}
+          {formatarData(date)}
         </Text>
       </View>
     </TouchableOpacity>
@@ -49,16 +90,23 @@ function MatchResult({ onPress, src, firstTeam, secondTeam, date, time }: any) {
 function Screen({ navigation }: any) {
   const { i18n, lang }: any = useLanguage()
   const [mapaSelecionado, setMapaSelecionado] = useState("")
-  const [partidas, setPartidas] = useState([])
+  const [partidasPorMapa, setPartidasPorMapa] = useState<TimeEmPartidaProps[]>(
+    []
+  )
 
   useEffect(() => {
     const searchMatches = async () => {
-      const { data } = await api.get("/partidas")
-      const partidas = await data.partidas
-      const partidasFiltradas = partidas.filter((partida: any) => {
-        return partida.nomeMapa === mapaSelecionado && partida.score != "0 : 0"
-      })
-      setPartidas(partidasFiltradas)
+      const { data } = await api.get("/timeEmPartida")
+      const partidas = await data.timesEmPartida
+      const partidasFiltradas = partidas.filter(
+        (partida: TimeEmPartidaProps) => {
+          return (
+            partida.idPartida.nomeMapa.toLowerCase() === mapaSelecionado &&
+            partida.idPartida.score != "0 : 0"
+          )
+        }
+      )
+      setPartidasPorMapa(partidasFiltradas)
     }
 
     searchMatches()
@@ -83,25 +131,29 @@ function Screen({ navigation }: any) {
         />
       </View>
 
-      {partidas.length != 0 ? (
-        <FlatList
-          data={partidas}
-          renderItem={({ item }: any) => (
+      {partidasPorMapa.length != 0 ? (
+        partidasPorMapa.map((partida: any, index: number) =>
+          index % 2 === 0 ? (
             <MatchResult
+              key={index}
               onPress={() => {
                 navigation.navigate({
                   name: "match",
-                  params: item,
+                  params: {
+                    idPartida1: partida._id,
+                    idPartida2: partidasPorMapa[index + 1]._id,
+                  },
                 })
               }}
-              src={item.mapImage}
-              firstTeam={item.teams[0].label}
-              secondTeam={item.teams[1].label}
-              date={item.date}
-              time={item.time}
+              src={partida.idPartida.imgMapa}
+              firstTeamId={partida.idTime.nome}
+              secondTeamId={partidasPorMapa[index + 1].idTime.nome}
+              date={partida.idPartida.data}
             />
-          )}
-        />
+          ) : (
+            <Text></Text>
+          )
+        )
       ) : mapaSelecionado != "" ? (
         <Text style={styles.label}>{i18n(lang, "noResults")}</Text>
       ) : (
